@@ -1,0 +1,35 @@
+# Configuration for valuation_template.py
+# Edit these values instead of editing Python source.
+
+target_ticker: AAPL       # ticker to value
+peer_tickers:             # comparable peers for comps
+  - MSFT
+  - GOOGL
+  - AMZN
+  - META
+sector: tech              # sector/sub-industry label, e.g. banks, insurers, software,
+                           # semiconductors, industrials, financials, tech, or null
+
+portfolio_tickers:        # candidate portfolio holdings
+  - AAPL
+  - MSFT
+  - GOOGL
+  - AMZN
+  - JNJ
+price_history_period: 5y  # e.g. 1y, 3y, 5y, 10y
+risk_free_rate: 0.04      # current risk-free rate (e.g. short-term Treasury yield)
+allow_short_selling: false # allow negative weights in the optimizer
+
+# DCF assumptions -- override defaults as needed for the target company.
+dcf_assumptions:
+  projection_years: 5
+  fcf_growth_rate: 0.06
+  terminal_growth_rate: 0.025
+  discount_rate: 0.09      # required return / WACC
+  net_debt_override: null  # set to override net debt pulled from yfinance
+
+# Sensitivity grid -- ranges of discount rate / terminal growth to stress-test.
+sensitivity:
+  discount_rates: [0.07, 0.08, 0.09, 0.10, 0.11]
+  terminal_growth_rates: [0.015, 0.02, 0.025, 0.03]
+  flag_threshold: 0.20     # % divergence from current price to flag
